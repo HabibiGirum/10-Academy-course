@@ -4,12 +4,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the dataset
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
 def load_data():
-    df = pd.read_csv('solar_measurements_benin_malanville_qc_year2.csv', encoding='latin1')
-    df['Timestamp'] = pd.to_datetime(df['Timestamp'], errors='coerce')  # Convert to datetime
+    # Direct download URL from Google Drive
+    url = 'https://drive.google.com/uc?id=1XuCRFXjFs5TqDQh13GHLuxAyQTJmLrFe'
+    
+    # Read the CSV file directly from the URL
+    df = pd.read_csv(url, encoding='latin1')
+    
+    # Process the data
+    df['Timestamp'] = pd.to_datetime(df['Timestamp'], errors='coerce')  # Convert Timestamp to datetime
     df['GHI'] = pd.to_numeric(df['GHI'], errors='coerce')  # Ensure GHI is numeric
-    df['DNI'] = pd.to_numeric(df['DNI'], errors='coerce')  # Example for another numeric column
+    df['DNI'] = pd.to_numeric(df['DNI'], errors='coerce')  # Ensure another example column (DNI) is numeric
+
+    # Return the cleaned DataFrame
     return df
+
 
 df = load_data()
 df.dropna(subset=['Timestamp', 'GHI'], inplace=True)  # Drop rows with invalid Timestamp or GHI
