@@ -1,2 +1,3 @@
 /env
-notebooks/dataset.csv
+notebooks/solar_measurements_benin_malanville_qc_year2.csv
+src/solar_measurements_benin_malanville_qc_year2.csv
